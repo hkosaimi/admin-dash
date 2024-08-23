@@ -46,8 +46,8 @@ function Login() {
   };
   return (
     <>
-      <div className="flex min-h-screen flex-col items-center justify-center bg-white text-black">
-        <div className="">
+      <div className="flex min-h-screen overflow-hidden flex-col items-center justify-center bg-white text-black">
+        <div>
           <h1 className="mb-5 text-[20px] font-semibold">Login to your store</h1>
         </div>
         <div className="">
