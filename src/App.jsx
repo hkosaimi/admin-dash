@@ -15,6 +15,7 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="/" element={<div>test</div>} />
         <Route path="/admin/login" element={<Login />} />
         <Route path="/admin" element={<AdminRoute element={<Order />} />} />
         <Route path="/admin/:orderID" element={<AdminRoute element={<OrderDetails />} />} />
