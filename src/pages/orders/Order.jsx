@@ -4,6 +4,8 @@ import { setUserInfo } from "../../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import Message from "../../components/Message";
+
 function Order() {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
@@ -15,7 +17,6 @@ function Order() {
       <div className="px-4 py-6 lg:py-3 lg:mt-[50px] ml-0 lg:ml-[50px] ">
         <div className="">
           <h1 className="text-[20px] font-bold">All orders:</h1>
-          <button onClick={() => toast.success("Hey")}>hhh</button>
           <div className="w-full bg-gray-900 bg-opacity-20 h-[1px] mb-5 mt-5"></div>
         </div>
 
@@ -41,7 +42,7 @@ function Order() {
             </div>
             <Link
               to={`/${orderID}`}
-              className="flex flex-col lg:flex-row w-full justify-around gap-4 bg-white px-3 py-3 rounded-lg shadow-md [&>p]:w-[200px] [&>p]:overflow-hidden hover:bg-gray-100">
+              className="flex [&>p]:truncate  flex-col lg:flex-row w-full justify-around gap-4 bg-white px-3 py-3 rounded-lg shadow-md [&>p]:w-[200px] [&>p]:overflow-hidden hover:bg-gray-100">
               <p>#1</p>
               <p> Jane Doe</p>
               <p>janedoe@example.com</p>

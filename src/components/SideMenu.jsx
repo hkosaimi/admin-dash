@@ -1,13 +1,21 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { ShoppingBasket, Box, Boxes, Users, TicketPercent, LogOut, Truck } from "lucide-react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/slices/authSlice";
+import Divider from "./Divider";
 
 function SideMenu() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { pathname } = location;
   const { userInfo } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/admin/login");
+  };
   return (
     <div className="flex flex-col w-[32%] lg:w-[15%]  min-h-screen text-black px-[0.5rem] lg:px-[2rem] py-[2rem] border-r-[2px]">
       <div>
@@ -18,7 +26,7 @@ function SideMenu() {
         </div>
         <h1 className="font-bold mb-7">Store name</h1>
       </div>
-      <div className="w-full bg-gray-900 bg-opacity-20 h-[1px] mb-5"></div>
+      <Divider />
 
       <div className="flex flex-col justify-between h-full">
         <div className="flex flex-col gap-3">
@@ -78,13 +86,13 @@ function SideMenu() {
           </Link>
         </div>
         <div className="">
-          <div className="w-full bg-gray-900 bg-opacity-20 h-[1px] mb-5"></div>
-          <Link
-            href="/"
-            className="text-[#F43F5E] flex gap-3 hover:bg-white px-3 py-2 rounded-lg hover:shadow-[0_0_5px_rgba(0,0,0,0.1)]">
+          <Divider />
+          <button
+            onClick={handleLogout}
+            className="text-[#F43F5E] w-full flex gap-3 hover:bg-white px-3 py-2 rounded-lg hover:shadow-[0_0_5px_rgba(0,0,0,0.1)]">
             <LogOut strokeWidth={1} />
             <p>Logout</p>
-          </Link>
+          </button>
         </div>
       </div>
     </div>
