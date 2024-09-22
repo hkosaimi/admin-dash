@@ -63,7 +63,7 @@ function Message({ dismiss = true, variant = "primary", children }) {
     return (
       <div
         className={clsx(
-          "text-blue-600 max-w-full  bg-sky-100 items-center relative flex mt-5 px-3 py-3 rounded-lg gap-5 font-bold",
+          "text-blue-700 max-w-full shadow-md  bg-gradient-to-t from-sky-200 to-sky-100  items-center relative flex mt-5 px-3 py-3 rounded-lg gap-5 font-bold",
           close && "hidden"
         )}>
         <Lightbulb strokeWidth={2} />
@@ -71,7 +71,9 @@ function Message({ dismiss = true, variant = "primary", children }) {
           <h1>Info </h1>
           <p className="text-[16px] font-normal">{children}</p>
         </div>
-        <X size={20} className="absolute top-2 right-2 cursor-pointer" onClick={handleClose} />
+        {dismiss && (
+          <X size={20} className="absolute top-2 right-2 cursor-pointer" onClick={handleClose} />
+        )}
       </div>
     );
   }

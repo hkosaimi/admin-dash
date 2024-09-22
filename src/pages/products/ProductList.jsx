@@ -1,114 +1,75 @@
 import { Link } from "react-router-dom";
 import Layout from "../../Layout";
-
+import { useGetProductsQuery } from "../../redux/queries/productApi";
+import Badge from "../../components/Badge";
+import { Box, CirclePlus } from "lucide-react";
+import { useEffect } from "react";
+import Loader from "../../components/Loader";
 function ProductList() {
+  const { data: products, refetch, isLoading: loadingProducts } = useGetProductsQuery();
+  console.log(products);
+
+  useEffect(() => {
+    if (products) {
+      refetch();
+    }
+  }, [products]);
   return (
     <Layout>
-      <div className="px-4 flex flex-row-reverse justify-between py-3 mt-[50px] ml-0 lg:ml-[50px]  ">
-        <div className="">
-          <div className="flex justify-between items-center">
-            <h1 className="text-[20px] font-bold">Products:</h1>
-            <h1 className="bg-white shadow-md hover:bg-gray-100 px-3 py-2 rounded-lg cursor-pointer">
-              create new product
-            </h1>
-          </div>
-          <div className="w-full bg-gray-900 bg-opacity-20 h-[1px] mb-5 mt-5"></div>
+      {loadingProducts ? (
+        <Loader />
+      ) : (
+        <div className="lg:px-4 flex  justify-between py-3 mt-[50px] ml-0 lg:ml-[50px]  ">
+          <div className="">
+            <div className="flex justify-between items-center">
+              <h1 className=" text-sm lg:text-[20px] font-bold flex gap-5 items-center">
+                Products:{" "}
+                <Badge icon={false}>
+                  <Box />
+                  {products?.length > 0 ? products?.length : "0"} products
+                </Badge>
+              </h1>
+              <Link
+                to="/admin/productlist/product-create"
+                className="bg-gradient-to-t  hover:from-rose-500 hover:to-rose-400/80 from-rose-500 to-rose-400 text-white font-bold flex items-center gap-2 text-sm lg:text-md shadow-md  px-3 py-2 rounded-lg ">
+                Add new product <CirclePlus strokeWidth={2} />
+              </Link>
+            </div>
+            <div className="w-full bg-gray-900 bg-opacity-20 h-[1px] mb-5 mt-5"></div>
 
-          <div className="lg:flex hidden justify-around gap-4 px-3  w-[1000px] mb-5 lg:mt-[50px] text-gray-500 [&>p]:w-[200px] [&>p]:overflow-hidden">
-            <p>Name:</p>
-            <p>Collection:</p>
-            <p>In stock:</p>
-            <p>price:</p>
-            <p></p>
-          </div>
-          <div className="w-[300px] lg:w-[1000px] mb-5">
-            <Link
-              href="/"
-              className="flex w-full flex-col lg:flex-row justify-around gap-4 bg-white px-3 py-3 rounded-lg shadow-md [&>p]:w-[200px] [&>p]:overflow-hidden hover:bg-gray-100">
-              <p> IPhone 13</p>
-              <p>IPhone</p>
-              <p>10</p>
-              <p> 150.00 KD</p>
-              <div className="lg:w-[200px] flex justify-around">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="text-[#F43F5E]  ">
-                  <path d="M3 6h18" />
-                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                  <line x1="10" x2="10" y1="11" y2="17" />
-                  <line x1="14" x2="14" y1="11" y2="17" />
-                </svg>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#000000"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="lucide lucide-pencil">
-                  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
-                  <path d="m15 5 4 4" />
-                </svg>
+            <div className="w-[300px] flex items-center lg:w-[1000px] mb-2">
+              <div className="flex w-full  items-center flex-col lg:flex-row justify-around gap-4  px-3 py-3 [&>p]:w-[200px]  [&>p]:overflow-hidden ">
+                <p>Name:</p>
+                <p>Category:</p>
+                <p>In stock:</p>
+                <p>Price:</p>
               </div>
-            </Link>
-          </div>
-          <div className="w-[300px] lg:w-[1000px] ">
-            <Link
-              href="/"
-              className="flex w-full flex-col lg:flex-row justify-around hover:bg-gray-100 gap-4 bg-white px-3 py-3 rounded-lg shadow-md [&>p]:w-[200px] [&>p]:overflow-hidden">
-              <p> Galaxy watch 6</p>
-              <p>Samsung</p>
-              <p>10</p>
-              <p>150.00 KD</p>
-              <div className="lg:w-[200px] flex justify-around">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="text-[#F43F5E]  ">
-                  <path d="M3 6h18" />
-                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                  <line x1="10" x2="10" y1="11" y2="17" />
-                  <line x1="14" x2="14" y1="11" y2="17" />
-                </svg>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#000000"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="lucide lucide-pencil">
-                  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
-                  <path d="m15 5 4 4" />
-                </svg>
+            </div>
+            {products?.map((product) => (
+              <div key={product?._id} className="w-[300px] flex items-center lg:w-full mb-5">
+                <Link
+                  to={`/admin/productlist/${product._id}`}
+                  className="flex w-full  items-center flex-col transition-all hover:shadow-md duration-300 lg:flex-row justify-around gap-4 bg-white px-3 py-3 rounded-lg shadow [&>p]:w-[200px]  [&>p]:overflow-hidden hover:bg-gray-100">
+                  <p className="flex items-center  ">
+                    <img className="w-16" src={product.image} alt="thumbnail" loading="lazy" />
+                    <span>{product.name}</span>
+                  </p>
+
+                  <p>{product.category}</p>
+                  <p>
+                    {product.countInStock > 0 ? (
+                      product.countInStock
+                    ) : (
+                      <span className="text-rose-500 font-bold">Out of stock</span>
+                    )}
+                  </p>
+                  <p> {product.price.toFixed(3)} KD</p>
+                </Link>
               </div>
-            </Link>
+            ))}
           </div>
         </div>
-      </div>
+      )}
     </Layout>
   );
 }
